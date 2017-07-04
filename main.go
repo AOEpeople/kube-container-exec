@@ -103,14 +103,8 @@ func (kc *KubeClient) ExecInPod(pod *apiv1.Pod, container string, commands []str
 		return err
 	}
 
-	err = os.Stdout.Sync()
-	if err != nil {
-		return err
-	}
-	err = os.Stderr.Sync()
-	if err != nil {
-		return err
-	}
+	os.Stdout.Sync()
+	os.Stderr.Sync()
 
 	err = executor.Stream(remotecommand.StreamOptions{
 		SupportedProtocols: remotecommandconsts.SupportedStreamingProtocols,
